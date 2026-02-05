@@ -1,1 +1,26 @@
+name: Alerta CI Hola Mundo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notificacion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Hola Mundo
+        run: node index.js
+
+      - name: Enviar notificación a ntfy
+        run: |
+          curl -X POST \
+          -H "Title: GitHub Actions CI" \
+          -H "Priority: 3" \
+          -d "Se ha subido código a la rama MAIN del repositorio y el workflow se ejecutó correctamente ✅" \
+          https://ntfy.sh/devops-itla
 
